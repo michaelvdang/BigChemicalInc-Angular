@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UsersService } from './users.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-app';
+  employee: any;
+  // employee = list;
+  constructor(private user:UsersService)
+  {
+    this.user.getDate().subscribe(data=>{
+      this.employee = data;
+      console.log(this.employee)
+    });
+  }
 }
