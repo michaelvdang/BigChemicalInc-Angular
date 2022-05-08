@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { UsersService } from './users.service';
+import { UsersService } from './services/users.service';
+import { FriendComponent } from './friend/friend.component';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,10 @@ export class AppComponent {
   // employee = list;
   constructor(private user:UsersService)
   {
-    this.user.getDate().subscribe(data=>{
-      this.employee = data;
-      console.log(this.employee)
+    this.user.getDate().subscribe(
+      data=>{
+        this.employee = data;
+        console.log(this.employee)
     });
   }
 }

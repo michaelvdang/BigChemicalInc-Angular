@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee-info.component.css']
 })
 export class EmployeeInfoComponent implements OnInit {
+  degrees: any;
+  constructor() { 
+    this.degrees = [
 
-  constructor() { }
+    ];
+  }
 
   ngOnInit(): void {
   }
-
 }
