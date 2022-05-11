@@ -24,7 +24,8 @@ export class EmployeeAccessRightsComponent implements OnInit {
         
         this.buildings = [... new Set(this.access_rights.map(item => item.buildingID))];
         console.log(this.buildings);
-      });
+      }
+    );
 
   }
 
