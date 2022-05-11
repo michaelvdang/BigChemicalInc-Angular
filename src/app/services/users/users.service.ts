@@ -10,7 +10,7 @@ export class UsersService {
 
   getDate()
   {
-    let url = 'http://localhost:8000/employees/31';
+    let url = 'http://localhost:8000/employee-access-rights/1';
     // let url = 'https://jsonplaceholder.typicode.com/todos';
     return this.http.get(url);//, {headers: {''}});
   }
