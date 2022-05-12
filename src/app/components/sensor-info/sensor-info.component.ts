@@ -14,6 +14,7 @@ export class SensorInfoComponent implements OnInit {
       data => {
         this.data = data;
         this.sensors = this.data.sensors;
+        console.log(this.data);
       }
     );
   }

@@ -15,7 +15,7 @@ export class SensorRepairsComponent implements OnInit {
         // console.log(data);
         this.data = data;
         this.sensor_repairs = this.data.sensor_repairs;
-        console.log(this.sensor_repairs);
+        console.log(this.data);
       }
     );
   }
