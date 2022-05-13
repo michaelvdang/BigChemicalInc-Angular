@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UsersService } from './services/users/users.service';
 // import { FriendComponent } from './friend/friend.component';
 
 @Component({
@@ -11,7 +10,7 @@ export class AppComponent {
   title = 'my-app';
   employee: any;
   // employee = list;
-  constructor(private user:UsersService)
+  constructor()
   {
     // this.user.getDate().subscribe(
     //   data=>{

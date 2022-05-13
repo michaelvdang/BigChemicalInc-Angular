@@ -14,9 +14,14 @@ export class EmployeeTrackingComponent implements OnInit {
   office_info: any;
   tracking_log: Array<any> = [];
   @Input()
-  startDate: string = '01-01-2000';
+  date: string = '04-12-2022';
   @Input()
-  endDate: string = '12-31-2050';
+  startTime: string = '07:00';
+  startDate: string = '01-01-2000 05:22';
+  // startDate: string = '01-01-2000';
+  @Input()
+  endTime: string = '19:55';
+  // endDate: string = '12-31-2050';
 
   constructor(private service: EmployeeTrackingService) { 
     this.service.get_employee_accesses().subscribe(
@@ -27,40 +32,40 @@ export class EmployeeTrackingComponent implements OnInit {
         for (let i = 0; i < this.employee_accesses.length; i++){
           if (this.employee_accesses[i].direction == 'in') {
             this.tracking_log.push({ // concat or push?
-                  accesses_index    : i,
+                  accesses_index    : i,  // index of the 'in' access in employee_acceses
+                  date              : this.employee_accesses[i].date,
                   time_in           : this.employee_accesses[i].time,
-                  location          : this.employee_accesses[i].building + ' ' + 
-                                        this.employee_accesses[i].roomID,
+                  building          : this.employee_accesses[i].building,
+                  roomID            : this.employee_accesses[i].roomID,
                   time_out          : '',
                   door              : this.employee_accesses[i].doorID
             });
           }
           else { // access direction is 'out'
-            // back track to other employee_accesses within the same day
-            let j = i - 1;
+            // back track to other employee_accesses to the same room in tracking_log
+            let j = this.tracking_log.length - 1;
             let found_match = false;
-            while (j >= 0 && !found_match &&
-                  this.employee_accesses[j].date == this.employee_accesses[i].date) {
+            while (j >= 0 && !found_match){
               // check that access direction is 'in' and to the same room
               // to edit 'time-out'
-              if (this.employee_accesses[j].direction == 'in' &&
-                    this.employee_accesses[j].roomID == this.employee_accesses[i].roomID) {
-                // find 'in' in tracking log
-                let in_index = this.tracking_log.findIndex(access => access.accesses_index == j);
-                this.tracking_log[in_index].time_out = this.employee_accesses[i].time;
+              if (this.tracking_log[j].time_out == '' &&
+                    this.tracking_log[j].roomID == this.employee_accesses[i].roomID &&
+                    this.tracking_log[j].building == this.employee_accesses[i].building) {
+                this.tracking_log[j].time_out = this.employee_accesses[i].time;
                 found_match = true;
               }
               j--;
             }
             // can't find employee 'in', must be error 
             if (!found_match) {
-              this.tracking_log.concat({
-                'index'    : i,
-                'time_in': '',
-                'Location': this.employee_accesses[i].building + ' ' +
-                    this.employee_accesses[i].roomID,
-                'time_out': this.employee_accesses[i].time,
-                'Door': this.employee_accesses[i].doorID
+              this.tracking_log.push({
+                index    : i,
+                date     : this.employee_accesses[i].date,
+                time_in  : '',
+                building : this.employee_accesses[i].building,
+                roomID   : this.employee_accesses[i].roomID,
+                time_out : this.employee_accesses[i].time,
+                door     : this.employee_accesses[i].doorID
               });
             }
           }

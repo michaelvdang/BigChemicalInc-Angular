@@ -19,8 +19,8 @@ export class EmployeeAccessRightsComponent implements OnInit {
         this.data = data;
         this.access_rights = this.data.access_rights;
         this.employee = this.access_rights[0];
-        console.log(this.data); 
-        
+        console.log(this.data);
+
         this.buildings = [... new Set(this.access_rights.map(item => item.buildingID))];
         console.log(this.buildings);
       }
